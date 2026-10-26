@@ -10,7 +10,11 @@ prototypes: their names and plots do not establish that a network is critical.
   either demo.
 - `avalanche_analysis.py`: dependency-free analysis of recorded spike bins and
   an empirical complementary cumulative distribution.
-- `Dynamics.py`: the separate historical grid simulation and visualizations.
+- `Dynamics.py`: explicit launcher for the separate historical grid experiment.
+  Importing it does not load the scientific runtime or run simulations.
+- `legacy/dynamics_demo.py`: preserved original grid simulation and plots.
+- [Grid-model contract review](docs/dynamics-contract.md): indexing, spike timing,
+  weights, and avalanche boundaries that need a model decision before correction.
 - `critical_brain_readme.pdf` and the images: original project notes, preserved.
 
 ## Set up and run
@@ -56,7 +60,7 @@ aliased history shape must adopt this explicit recording format.
   be right-censored and must not automatically be treated as a complete event.
 - `MultiAgentNetwork.interactions` is initialized but not applied by `step`.
   The current populations are not a tested coupled multi-agent model.
-- In `Dynamics.py`, the sampled excitatory indices and contiguous index slices
+- In `legacy/dynamics_demo.py`, the sampled excitatory indices and contiguous index slices
   are inconsistent, and coupling reads membrane thresholds after immediate
   resets. Its connectivity/spike-update semantics need an explicit model
   decision and focused tests before interpreting new results.
