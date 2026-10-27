@@ -13,6 +13,10 @@ prototypes: their names and plots do not establish that a network is critical.
 - `Dynamics.py`: explicit launcher for the separate historical grid experiment.
   Importing it does not load the scientific runtime or run simulations.
 - `legacy/dynamics_demo.py`: preserved original grid simulation and plots.
+- `grid_step.py`: opt-in, dependency-free, deterministic grid transition. All
+  identities, directed edges, signed weights, state, time parameters, and drive
+  are explicit; no historical launcher or other model calls it. See the
+  [complete transition contract and arithmetic fixture](docs/grid-step-contract.md).
 - [Grid-model contract review](docs/dynamics-contract.md): indexing, spike timing,
   weights, and avalanche boundaries that need a model decision before correction.
 - `critical_brain_readme.pdf` and the images: original project notes, preserved.
@@ -45,6 +49,11 @@ recording contains one independent frame per timestep, that avalanches are not
 counted repeatedly or dropped at the end, and that the CCDF has a positive tail.
 No long demo or scientific training runs in these checks. GitHub Actions runs
 the same suite with the declared dependencies.
+
+The `test_grid_step.py` fixtures additionally check source-to-target weight
+selection for interleaved E/I identities, synchronous one-bin spike delivery,
+time-step scaling, resets, and validation. These engineering checks do not
+reproduce the historical experiment or establish criticality.
 
 `all_firings[t][agent]` is the list/array of neuron indices for that timestep,
 not the agent's entire accumulated history. Existing callers relying on the old

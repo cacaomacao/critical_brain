@@ -21,7 +21,9 @@ format used by `dcm_izhik.py`. They have not silently replaced the historical
 grid model's analysis. The grid experiment and stored images must not be treated
 as newly reproduced results because the launcher was refactored.
 
-A future model API should accept configuration and RNG explicitly, define one
-step and its returned spike mask, and pass fixed-input transition tests before
-any scientific run. This maintenance change supplies import isolation and this
-contract review; it does not choose a new model.
+The separate [opt-in grid transition contract](grid-step-contract.md) now defines
+one deterministic transition with fully explicit inputs and a fixed arithmetic
+fixture. Its synchronous, previous-bin delivery semantics are new engineering
+choices, not a resolution of what the historical author intended. It does not
+change `legacy/dynamics_demo.py` or launch an experiment. Random sampling remains
+outside that API and must receive an explicit RNG if introduced later.
